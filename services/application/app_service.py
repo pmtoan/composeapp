@@ -83,6 +83,24 @@ class AppService:
 
 		return None
 
+	def get_apps(self):
+		apps = []
+		sql = '''
+			SELECT id, name, desc, repository, created_at, updated_at, deleted_at
+			FROM applications
+			WHERE deleted_at = 'None'
+		'''
+		results = self.database.query(sql)
+		for result in results:
+			app = Application()
+			app.scan(
+				fields=result,
+				build_history=self.__get_build_history__(result[0])
+			)
+			apps.append(app)
+
+		return apps
+
 	def build_app(self, app_id=None):
 		app = self.get_app(app_id)
 		if app is None:

@@ -26,7 +26,7 @@ class Application:
 			'build_history': []
 		}
 		for bh in self.build_history:
-			app['build_history'].append(repr(bh))
+			app['build_history'].append(bh.ser())
 
 		return app
 
@@ -44,6 +44,9 @@ class Application:
 			build_history = BuildHistory()
 			build_history.scan(row)
 			self.build_history.append(build_history)
+
+	def ser(self):
+		return self.__ser__()
 
 	def create(self):
 		self.id = utilities.uuid.generate_uuid_v4()

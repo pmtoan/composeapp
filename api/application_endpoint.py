@@ -31,7 +31,12 @@ class ApplicationEndpoint:
 
 		if app_id == '_':
 			# get all apps
-			return json.dumps([])
+			app_list = []
+			apps = self.app_service.get_apps()
+			for app in apps:
+				app_list.append(app.ser())
+
+			return json.dumps(app_list)
 		else:
 			app = self.app_service.get_app(app_id=app_id)
 			if app is None:

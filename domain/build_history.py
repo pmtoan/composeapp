@@ -8,7 +8,6 @@ class BuildHistory:
 		self.app_id = app_id
 		self.built_at = built_at
 		self.code = code
-		self.output = None
 
 	def __ser__(self):
 		return {
@@ -16,7 +15,6 @@ class BuildHistory:
 			'app_id': self.app_id,
 			'built_at': self.built_at,
 			'code': self.code,
-			'output': self.output,
 		}
 
 	def __str__(self):
@@ -34,3 +32,6 @@ class BuildHistory:
 		self.app_id = fields[1]
 		self.built_at = fields[2]
 		self.code = fields[3]
+
+	def ser(self):
+		return self.__ser__()
