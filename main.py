@@ -1,6 +1,13 @@
-from settings.db import Database
+import web
+import settings.api_urls
 
+from dotenv import load_dotenv
+
+from api.root import Root
+from api.application_endpoint import ApplicationEndpoint
 
 if __name__ == '__main__':
-	db = Database()
-	db.migrate()
+	load_dotenv(verbose=True)
+
+	app = web.application(settings.api_urls.path, globals())
+	app.run()

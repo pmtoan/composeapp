@@ -1,3 +1,4 @@
+from settings.db import Database
 from domain.application import Application
 from domain.build_history import BuildHistory
 from domain.git_clone_request import GitCloneRequest
@@ -5,8 +6,8 @@ from domain.compose_request import ComposeRequest
 
 
 class AppService:
-	def __init__(self, database=None, git_service=None, compose_service=None, build_log_service=None):
-		self.database = database
+	def __init__(self, git_service=None, compose_service=None, build_log_service=None):
+		self.database = Database()
 		self.git_service = git_service
 		self.compose_service = compose_service
 		self.build_log_service = build_log_service
