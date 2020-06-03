@@ -12,17 +12,6 @@ class AppService:
 		self.compose_service = compose_service
 		self.build_log_service = build_log_service
 
-	def __get_repository__(self, app_id=None):
-		repository_query = '''
-			SELECT repo_id, app_id, link FROM repositories
-			WHERE app_id = '%s'
-		''' % app_id
-		results = self.database.query(sql=repository_query)
-		for result in results:
-			return result
-
-		return None
-
 	def __get_build_history__(self, app_id=None):
 		# query build history
 		build_history_query = '''
