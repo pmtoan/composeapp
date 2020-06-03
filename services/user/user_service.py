@@ -15,7 +15,7 @@ class UserService:
 			sql = '''
 				INSERT INTO users(id, username, password, role)
 				VALUES('%s', '%s', '%s', '%s')
-			''' % user.id, user.username, user.password, user.role
+			''' % (user.id, user.username, user.password, user.role)
 			self.database.execute(sql)
 			return None
 		except Exception as e:
