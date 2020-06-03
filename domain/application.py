@@ -11,7 +11,6 @@ class Application:
 		self.desc = desc
 		self.created_at = None
 		self.updated_at = None
-		self.deleted_at = None
 		self.repository = repository
 		self.build_history = []
 
@@ -21,7 +20,6 @@ class Application:
 			'desc': self.desc,
 			'created_at': self.created_at,
 			'updated_at': self.updated_at,
-			'deleted_at': self.deleted_at,
 			'repository': self.repository,
 			'build_history': []
 		}
@@ -62,8 +60,5 @@ class Application:
 		self.repository = fields[3]
 		self.created_at = fields[4]
 		self.updated_at = fields[5]
-		self.deleted_at = fields[6]
-		if self.deleted_at == 'None':
-			self.deleted_at = None
 
 		self.__scan_build_history__(build_history)

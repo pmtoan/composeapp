@@ -5,8 +5,7 @@ CREATE TABLE applications(
     desc TEXT,
     repository VARCHAR(255) NOT NULL,
     created_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL,
-    deleted_at DATETIME DEFAULT NULL
+    updated_at DATETIME NOT NULL
 );
 
 DROP TABLE IF EXISTS build_histories;
@@ -15,4 +14,12 @@ CREATE TABLE build_histories(
     app_id VARCHAR(255),
     built_at DATETIME NOT NULL,
     code INT DEFAULT 0
+);
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users(
+    id VARCHAR(255) PRIMARY KEY,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    role VARCHAR(255)
 );

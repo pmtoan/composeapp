@@ -42,9 +42,9 @@ class AppService:
 
 		try:
 			sql = '''
-				INSERT INTO applications(id, name, desc, repository, created_at, updated_at, deleted_at)
-				VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')
-			''' % (app.id, app.name, app.desc, app.repository, app.created_at, app.updated_at, app.deleted_at)
+				INSERT INTO applications(id, name, desc, repository, created_at, updated_at)
+				VALUES('%s', '%s', '%s', '%s', '%s', '%s')
+			''' % (app.id, app.name, app.desc, app.repository, app.created_at, app.updated_at)
 			self.database.execute(sql)
 			return None
 
@@ -57,9 +57,9 @@ class AppService:
 
 		app = Application()
 		sql = '''
-			SELECT id, name, desc, repository, created_at, updated_at, deleted_at
+			SELECT id, name, desc, repository, created_at, updated_at
 			FROM applications
-			WHERE id = '%s' AND deleted_at = 'None'
+			WHERE id = '%s'
 		''' % app_id
 		results = self.database.query(sql)
 
@@ -75,9 +75,8 @@ class AppService:
 	def get_apps(self):
 		apps = []
 		sql = '''
-			SELECT id, name, desc, repository, created_at, updated_at, deleted_at
+			SELECT id, name, desc, repository, created_at, updated_at
 			FROM applications
-			WHERE deleted_at = 'None'
 		'''
 		results = self.database.query(sql)
 		for result in results:

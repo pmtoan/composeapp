@@ -1,3 +1,4 @@
+PyJWT
 cheroot==8.3.0
 jaraco.functools==3.0.1
 more-itertools==8.3.0
