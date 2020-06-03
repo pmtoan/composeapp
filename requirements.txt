@@ -1,7 +1,12 @@
-PyJWT
+cffi==1.14.0
 cheroot==8.3.0
+cryptography==2.9.2
 jaraco.functools==3.0.1
+Jinja2==2.11.2
+MarkupSafe==1.1.1
 more-itertools==8.3.0
+pycparser==2.20
+PyJWT==1.7.1
 python-dotenv==0.13.0
 six==1.15.0
 web.py==0.51

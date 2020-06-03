@@ -1,0 +1,17 @@
+{
+  "name": "composeapp",
+  "version": "1.0.0",
+  "description": "Composeapp is a service support build & deploy your application use docker-compose. An example project can be found [here](https://github.com/pmtoan/example-go-service)",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  },
+  "author": "pmtoan",
+  "license": "ISC",
+  "devDependencies": {
+    "materialize-css": "^1.0.0-rc.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
