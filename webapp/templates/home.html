@@ -11,13 +11,94 @@
 	<div class="container">
 		<div class="section"></div>
 		<div class="section"></div>
-		<div class="section"></div>
-		<div class="row">
-			<div class="col s12">
-				<a class="btn blue lighten-1 waves-effect waves-light">
-					<i class="material-icons left">add</i>
-					new app
-				</a>
+		<div id="login_section">
+			<div class="row">
+				<div class="col s12">
+					<a class="btn blue lighten-1 waves-effect waves-light modal-trigger" data-target="login_modal">
+						login
+					</a>
+				</div>
+			</div>
+			<div class="modal" id="login_modal" style="width: 400px;">
+				<div class="modal-content">
+					<div class="row">
+						<div class="col s12">
+							<h5>Login into Composeapp</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12 input-field">
+							<input type="text" id="username">
+							<label for="username">Username</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12 input-field">
+							<input type="password" id="password">
+							<label for="password">Password</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<p id="login_status" class="red-text"></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<a class="btn blue lighten-1 waves-effect waves-light" id="confirm_login" style="width: 100%;">login</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="home_section" style="display: none">
+			<div class="row">
+				<div class="col s12">
+					<h5><b>Applications list</b></h5>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<a class="btn blue lighten-1 waves-effect waves-light modal-trigger" data-target="create_app_modal">
+						<i class="material-icons left">add</i>
+						new
+					</a>
+				</div>
+			</div>
+			<div class="row" id="app_list">
+			</div>
+			<div class="modal" id="create_app_modal" style="width: 400px;">
+				<div class="modal-content">
+					<div class="row">
+						<div class="col s12">
+							<h5>Create Application</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12 input-field">
+							<input type="text" id="app_name">
+							<label for="app_name">Name</label>
+						</div>
+						<div class="col s12 input-field">
+							<input type="text" id="app_desc">
+							<label for="app_desc">Description</label>
+						</div>
+						<div class="col s12 input-field">
+							<input type="text" id="app_repo">
+							<label for="app_repo">Repository</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<p id="create_app_status" class="red-text"></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s12">
+							<a class="btn blue lighten-1 waves-effect waves-light" id="confirm_create_app" style="width: 100%;">create</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
