@@ -6,7 +6,7 @@ class Database:
 	def __init__(self, path=None):
 		self.path = path
 		if self.path is None:
-			self.path = os.path.join('data', 'local.sqlite')
+			self.path = os.environ['DB_PATH']
 
 		self.conn = None
 
