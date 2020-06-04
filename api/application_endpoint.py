@@ -73,7 +73,7 @@ class ApplicationEndpoint:
 			if app is None:
 				return json.dumps({})
 			else:
-				return json.dumps(repr(app))
+				return json.dumps(app.ser())
 
 	def POST(self, app_id):
 		web.header('Access-Control-Allow-Origin', '*')
