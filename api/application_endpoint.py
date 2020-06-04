@@ -51,7 +51,18 @@ class ApplicationEndpoint:
 		return None
 
 	def __validate_build_app_request__(self):
-		return self.__validate_get_app_request__()
+		token = web.ctx.env.get('HTTP_API_TOKEN')
+		if token is None:
+			return Exception('unauthorized')
+
+		user = self.user_service.validate_user_token(token=token)
+		if isinstance(user, Exception):
+			return Exception('unauthorized')
+
+		if user.role != 'admin':
+			return Exception('unauthorized')
+
+		return None
 
 	def GET(self, app_id):
 		web.header('Access-Control-Allow-Origin', '*')
