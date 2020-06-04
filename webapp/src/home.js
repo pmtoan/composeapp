@@ -13,12 +13,20 @@ window.onload = function () {
 		GetApp('_', function (apps) {
 			for (let i=0; i<apps.length; i++) {
 				document.getElementById('app_list').innerHTML += `
-					<div class="col s12" style="margin-bottom: 10px;">
-						<a class="btn btn-large white blue-grey-text">
-							<i class="material-icons left">dashboard</i>
-							${apps[i]['name']}
+					<li class="collection-item avatar"
+					onclick="window.location = '/app/detail?app_id=${apps[i]['id']}'">
+						<img src="/static/images/logo.png" alt="" class="circle">
+						<span class="title" style="font-weight: bold">${apps[i]['name']}</span>
+						<p>
+							${apps[i]['desc']} <br>
+							Created At:  ${apps[i]['created_at']} <br>
+							Last Build:  ${apps[i]['updated_at']}
+						</p>
+						<a href="#!" class="secondary-content green-text">
+							<i class="material-icons left">check</i>
+							deployed
 						</a>
-					</div>
+					</li>
 				`;
 			}
 		});

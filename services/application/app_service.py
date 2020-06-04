@@ -102,12 +102,11 @@ class AppService:
 			return return_code, output
 
 		compose_request = ComposeRequest(app_id=app_id, compose_file='docker-compose.yml')
-		return_code, down_output = self.compose_service.down(compose_request)
-		output += down_output
-		if return_code != 0:
-			self.__save_build_log__(app_id=app_id, code=return_code, output=output)
-			return return_code, output
-
+		# return_code, down_output = self.compose_service.down(compose_request)
+		# output += down_output
+		# if return_code != 0:
+		# 	self.__save_build_log__(app_id=app_id, code=return_code, output=output)
+		# 	return return_code, output
 		return_code, up_output = self.compose_service.up(compose_request)
 		output += up_output
 		self.__save_build_log__(app_id=app_id, code=return_code, output=output)

@@ -6,6 +6,11 @@
 	<link rel="icon" href="/static/images/logo.png">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="/static/stylesheets/materialize.min.css">
+	<style>
+		.collection-item:hover {
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -65,8 +70,12 @@
 					</a>
 				</div>
 			</div>
-			<div class="row" id="app_list">
-				<!-- append app list here -->
+			<div class="row">
+				<div class="col s12">
+					<ul class="collection" id="app_list">
+
+					</ul>
+				</div>
 			</div>
 			<div class="modal" id="create_app_modal" style="width: 400px;">
 				<div class="modal-content">
