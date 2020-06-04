@@ -50,6 +50,9 @@ class ApplicationEndpoint:
 
 		return None
 
+	def __validate_build_app_request__(self):
+		return self.__validate_get_app_request__()
+
 	def GET(self, app_id):
 		web.header('Access-Control-Allow-Origin', '*')
 
@@ -87,5 +90,9 @@ class ApplicationEndpoint:
 				return json.dumps({'error': result})
 		else:
 			# build app
+			result = self.__validate_build_app_request__()
+			if isinstance(result, Exception):
+				return json.dumps({'error': str(result)})
+
 			return_code, output = self.app_service.build_app(app_id=app_id)
 			return json.dumps({'code': return_code, 'output': output})
