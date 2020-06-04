@@ -19,21 +19,19 @@ An example project can be found [here](https://github.com/pmtoan/example-go-serv
 - Python 3 & NodeJS installed
 
 ##### Setup Python Env
-Install python virtualenv
 ```bash
+# install virtualenv
 python3 -m pip install virtualenv
-```
-Create virtualenv for this project
-```bash
+
+# init virtualenv
 virtualenv env
-```
-Install python dependencies
-```bash
+
+# install pip requirements
 env/bin/python3 -m pip install -r requirements.txt
 ```
 
 ##### Setup NodeJS Env
-Install node modules
 ```bash
+# install node modules
 npm install
 ```
