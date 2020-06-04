@@ -3,6 +3,10 @@
 Composeapp is a service & web interface support build & deploy your application use docker-compose.
 An example project can be found [here](https://github.com/pmtoan/example-go-service)
 
+### TODO
+- User management: CREATE, DELETE, UPDATE, GRANT
+- Authenticate user when get app build log
+
 ### For Users
 #### How it works?
 - Firstly, you develop you application with any languages or addition service (database, caching, ...)
