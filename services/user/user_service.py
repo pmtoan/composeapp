@@ -21,6 +21,19 @@ class UserService:
 		except Exception as e:
 			return e
 
+	@staticmethod
+	def validate_user_token(token):
+		try:
+			user = utilities.crypto.decode_jwt_token(token=token)
+			user_return = User()
+			user_return.id = user['id']
+			user_return.username = user['username']
+			user_return.role = user['role']
+			return user_return
+
+		except Exception as e:
+			return e
+
 	def login(self, user):
 		# user try to login
 		# user is an User instance

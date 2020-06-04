@@ -7,6 +7,7 @@ from services.application.app_composer import AppComposer
 from services.git.git_service import GitService
 from services.docker.compose_service import ComposeService
 from services.log.build_log_service import BuildLogService
+from services.user.user_service import UserService
 
 
 class ApplicationEndpoint:
@@ -15,6 +16,7 @@ class ApplicationEndpoint:
 		self.git_service = GitService(local_folder=os.environ['RESOURCES_PATH'])
 		self.compose_service = ComposeService(local_folder=os.environ['RESOURCES_PATH'])
 		self.build_log_service = BuildLogService(local_folder=os.environ['LOG_PATH'])
+		self.user_service = UserService()
 
 		self.app_service = AppService(
 			git_service=self.git_service,
@@ -23,11 +25,37 @@ class ApplicationEndpoint:
 		)
 
 	def __validate_create_app_request__(self, data):
+		token = web.ctx.env.get('HTTP_API_TOKEN')
+		if token is None:
+			return Exception('unauthorized')
+
+		user = self.user_service.validate_user_token(token=token)
+		if isinstance(user, Exception):
+			return Exception('unauthorized')
+
+		if user.role != 'admin':
+			return Exception('unauthorized')
+
 		request = json.loads(data)
 		return self.app_compose.build_create_app_request(request['name'], request['desc'], request['repo_link'])
 
+	def __validate_get_app_request__(self):
+		token = web.ctx.env.get('HTTP_API_TOKEN')
+		if token is None:
+			return Exception('unauthorized')
+
+		user = self.user_service.validate_user_token(token=token)
+		if isinstance(user, Exception):
+			return Exception('unauthorized')
+
+		return None
+
 	def GET(self, app_id):
 		web.header('Access-Control-Allow-Origin', '*')
+
+		valid = self.__validate_get_app_request__()
+		if valid is not None:
+			return json.dumps({'error': str(valid)})
 
 		if app_id == '_':
 			# get all apps
@@ -50,6 +78,8 @@ class ApplicationEndpoint:
 		if app_id == '_':
 			# create app
 			app = self.__validate_create_app_request__(web.data())
+			if isinstance(app, Exception):
+				return json.dumps({'error': str(app)})
 			result = self.app_service.create_app(app)
 			if result is None:
 				return json.dumps({'error': ''})
