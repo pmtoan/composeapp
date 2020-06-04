@@ -18,7 +18,7 @@ An example project can be found [here](https://github.com/pmtoan/example-go-serv
 - Docker & Docker Compose installed
 - Python 3 & NodeJS installed
 
-**Setup Python Env**
+##### Setup Python Env
 Install python virtualenv
 ```bash
 python3 -m pip install virtualenv
@@ -32,7 +32,7 @@ Install python dependencies
 env/bin/python3 -m pip install -r requirements.txt
 ```
 
-**Setup NodeJS Env**  
+##### Setup NodeJS Env
 Install node modules
 ```bash
 npm install
