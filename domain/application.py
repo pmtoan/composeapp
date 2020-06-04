@@ -16,6 +16,7 @@ class Application:
 
 	def __ser__(self):
 		app = {
+			'id': self.id,
 			'name': self.name,
 			'desc': self.desc,
 			'created_at': self.created_at,
