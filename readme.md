@@ -32,7 +32,7 @@ Install python dependencies
 env/bin/python3 -m pip install -r requirements.txt
 ```
 
-**Setup NodeJS Env**
+**Setup NodeJS Env**  
 Install node modules
 ```bash
 npm install
