@@ -1,6 +1,6 @@
 ## Compose Application
 
-Composeapp is a service & web interface support build & deploy your application use docker-compose.
+Composeapp is a service & web interface support build & deploy your application use docker-compose.<br />
 An example project can be found [here](https://github.com/pmtoan/example-go-service)
 
 ### TODO
