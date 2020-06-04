@@ -5,7 +5,7 @@ CREATE TABLE applications(
     desc TEXT,
     repository VARCHAR(255) NOT NULL,
     created_at DATETIME NOT NULL,
-    updated_at DATETIME NOT NULL
+    last_build DATETIME NOT NULL
 );
 
 DROP TABLE IF EXISTS build_histories;

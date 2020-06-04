@@ -9,8 +9,8 @@ class Application:
 		self.id = None
 		self.name = name
 		self.desc = desc
-		self.created_at = None
-		self.updated_at = None
+		self.created_at = ''
+		self.last_build = ''
 		self.repository = repository
 		self.build_history = []
 
@@ -20,7 +20,7 @@ class Application:
 			'name': self.name,
 			'desc': self.desc,
 			'created_at': self.created_at,
-			'updated_at': self.updated_at,
+			'last_build': self.last_build,
 			'repository': self.repository,
 			'build_history': []
 		}
@@ -49,7 +49,7 @@ class Application:
 
 	def create(self):
 		self.id = utilities.uuid.generate_uuid_v4()
-		self.created_at = self.updated_at = utilities.time.current_timestamp()
+		self.created_at = utilities.time.current_timestamp()
 
 	def scan(self, fields=None, build_history=None):
 		if fields is None:
@@ -60,6 +60,6 @@ class Application:
 		self.desc = fields[2]
 		self.repository = fields[3]
 		self.created_at = fields[4]
-		self.updated_at = fields[5]
+		self.last_build = fields[5]
 
 		self.__scan_build_history__(build_history)

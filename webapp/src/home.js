@@ -4,32 +4,48 @@ const UserLogin = require('./queries/UserLogin');
 const CreateApp = require('./queries/CreateApp');
 const GetApp = require('./queries/GetApp');
 
+const getApplications = function() {
+	GetApp('_', function (apps) {
+		for (let i=0; i<apps.length; i++) {
+			let status = '';
+			if (apps[i]['last_build'].localeCompare('') === 0)
+				status = `
+					<a class="secondary-content blue-grey-text">
+						<i class="material-icons left">dashboard</i>
+						draft
+					</a>
+				`;
+			else
+				status = `
+					<a class="secondary-content green-text">
+						<i class="material-icons left">check</i>
+						deployed
+					</a>
+				`;
+
+			document.getElementById('app_list').innerHTML += `
+				<li class="collection-item avatar"
+				onclick="window.location = '/app/detail?app_id=${apps[i]['id']}'">
+					<img src="/static/images/logo.png" alt="" class="circle">
+					<span class="title" style="font-weight: bold">${apps[i]['name']}</span>
+					<p>
+						${apps[i]['desc']} <br>
+						Created At:  ${apps[i]['created_at']} <br>
+						Last Build:  ${apps[i]['last_build']}
+					</p>
+					${status}
+				</li>
+			`;
+		}
+	});
+};
+
 window.onload = function () {
 	if (CheckUserLogin()) {
 		// user already login
 		document.getElementById('login_section').style.display = 'none';
 		document.getElementById('home_section').style.display = 'block';
-
-		GetApp('_', function (apps) {
-			for (let i=0; i<apps.length; i++) {
-				document.getElementById('app_list').innerHTML += `
-					<li class="collection-item avatar"
-					onclick="window.location = '/app/detail?app_id=${apps[i]['id']}'">
-						<img src="/static/images/logo.png" alt="" class="circle">
-						<span class="title" style="font-weight: bold">${apps[i]['name']}</span>
-						<p>
-							${apps[i]['desc']} <br>
-							Created At:  ${apps[i]['created_at']} <br>
-							Last Build:  ${apps[i]['updated_at']}
-						</p>
-						<a href="#!" class="secondary-content green-text">
-							<i class="material-icons left">check</i>
-							deployed
-						</a>
-					</li>
-				`;
-			}
-		});
+		getApplications();
 
 		document.getElementById('confirm_create_app').addEventListener('click', function () {
 			const name = document.getElementById('app_name').value;

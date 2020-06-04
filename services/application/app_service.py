@@ -1,3 +1,5 @@
+import utilities.time
+
 from settings.db import Database
 from domain.application import Application
 from domain.build_history import BuildHistory
@@ -21,6 +23,13 @@ class AppService:
 		''' % app_id
 		return self.database.query(build_history_query)
 
+	def __set_last_build__(self, app_id=None):
+		sql = '''
+			UPDATE applications SET last_build = '%s'
+			WHERE id = '%s'
+		''' % (utilities.time.current_timestamp(), app_id)
+		self.database.execute(sql=sql)
+
 	def __set_build_history__(self, build_history=None):
 		sql = '''
 			INSERT INTO build_histories(build_id, app_id, built_at, code)
@@ -42,9 +51,9 @@ class AppService:
 
 		try:
 			sql = '''
-				INSERT INTO applications(id, name, desc, repository, created_at, updated_at)
+				INSERT INTO applications(id, name, desc, repository, created_at, last_build)
 				VALUES('%s', '%s', '%s', '%s', '%s', '%s')
-			''' % (app.id, app.name, app.desc, app.repository, app.created_at, app.updated_at)
+			''' % (app.id, app.name, app.desc, app.repository, app.created_at, app.last_build)
 			self.database.execute(sql)
 			return None
 
@@ -57,7 +66,7 @@ class AppService:
 
 		app = Application()
 		sql = '''
-			SELECT id, name, desc, repository, created_at, updated_at
+			SELECT id, name, desc, repository, created_at, last_build
 			FROM applications
 			WHERE id = '%s'
 		''' % app_id
@@ -75,7 +84,7 @@ class AppService:
 	def get_apps(self):
 		apps = []
 		sql = '''
-			SELECT id, name, desc, repository, created_at, updated_at
+			SELECT id, name, desc, repository, created_at, last_build
 			FROM applications
 		'''
 		results = self.database.query(sql)
@@ -99,16 +108,19 @@ class AppService:
 		return_code, output = self.git_service.clone(clone_request)
 		if return_code != 0:
 			self.__save_build_log__(app_id=app_id, code=return_code, output=output)
+			self.__set_last_build__(app_id=app_id)
 			return return_code, output
 
 		compose_request = ComposeRequest(app_id=app_id, compose_file='docker-compose.yml')
-		# return_code, down_output = self.compose_service.down(compose_request)
-		# output += down_output
-		# if return_code != 0:
-		# 	self.__save_build_log__(app_id=app_id, code=return_code, output=output)
-		# 	return return_code, output
+		return_code, down_output = self.compose_service.down(compose_request)
+		output += down_output
+		if return_code != 0:
+			self.__save_build_log__(app_id=app_id, code=return_code, output=output)
+			self.__set_last_build__(app_id=app_id)
+			return return_code, output
 		return_code, up_output = self.compose_service.up(compose_request)
 		output += up_output
 		self.__save_build_log__(app_id=app_id, code=return_code, output=output)
+		self.__set_last_build__(app_id=app_id)
 
 		return return_code, output
