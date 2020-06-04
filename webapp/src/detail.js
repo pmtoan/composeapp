@@ -2,6 +2,7 @@ const M = require('materialize-css');
 const CheckUserLogin = require('./queries/CheckUserLogin');
 const GetAppIdFromUrl = require('./queries/GetAppIdFromUrl');
 const GetApp = require('./queries/GetApp');
+const BuildApp = require('./queries/BuildApp');
 
 window.onload = function () {
 	if (CheckUserLogin()) {
@@ -11,9 +12,16 @@ window.onload = function () {
 		});
 
 		document.getElementById('build_app').addEventListener('click', function () {
-			setInterval(function () {
-				location.reload();
-			}, 5000);
+			BuildApp(GetAppIdFromUrl(), function (response) {
+				if (response['code'] === 0) {
+					document.getElementById('build_code').innerHTML = '<p class="green-text" style="font-weight: bold">success</p>';
+				} else {
+					document.getElementById('build_code').innerHTML = '<p class="red-text" style="font-weight: bold">failed</p>';
+				}
+				document.getElementById('build_output').innerHTML = response['output'];
+				document.getElementById('build_progress').style.display = 'none';
+				document.getElementById('build_status').style.display = 'block';
+			});
 		});
 
 	} else {
