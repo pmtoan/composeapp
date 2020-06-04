@@ -8,6 +8,7 @@ An example project can be found [here](https://github.com/pmtoan/example-go-serv
 - User management: CREATE, DELETE, UPDATE, GRANT
 - Authenticate user when get app build log
 - Validate project source code can built & deployed use docker-compose or not
+- Write Dockerfile and docker-compose file to run this project
 
 ### For Users
 #### How it works?
