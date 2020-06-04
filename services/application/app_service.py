@@ -17,9 +17,9 @@ class AppService:
 	def __get_build_history__(self, app_id=None):
 		# query build history
 		build_history_query = '''
-			SELECT build_id, app_id, built_at, code
-			FROM build_histories
+			SELECT build_id, app_id, built_at, code FROM build_histories
 			WHERE app_id = '%s'
+			ORDER BY built_at DESC 
 		''' % app_id
 		return self.database.query(build_history_query)
 

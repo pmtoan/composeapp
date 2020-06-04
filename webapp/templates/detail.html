@@ -22,8 +22,27 @@
 					<h5><b>Applications Detail</b></h5>
 				</div>
 			</div>
+			<div class="row" id="app_action">
+				<div class="col s12">
+					<a class="btn btn-small modal-trigger" id="build_app" data-target="build_progress_modal">
+						<i class="material-icons left">build</i>
+						build now
+					</a>
+					<a class="btn btn-small red lighten-2 right">
+						<i class="material-icons left">delete</i>
+						delete
+					</a>
+				</div>
+			</div>
 			<div class="row" id="app_detail">
 
+			</div>
+			<div class="modal" id="build_progress_modal" style="max-width: 400px;">
+				<div class="modal-content">
+					<div class="progress">
+						<div class="indeterminate"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
