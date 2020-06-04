@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 
 
@@ -14,8 +15,8 @@ class ComposeService:
 		cmd = self.compose_bin + cmd
 		sp = subprocess.Popen(cmd, shell=True, cwd=folder, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		out, err = sp.communicate()
-
-		return sp.returncode, (out + err).decode('utf-8')
+		ansi_escape = re.compile(r'(\x9B|\x1B\[)[0-?]*[ -/]*[@-~]')
+		return sp.returncode, ansi_escape.sub('', str((out + err).decode('utf-8')))
 
 	def up(self, request=None):
 		# request is a ComposeRequest instance
