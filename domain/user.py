@@ -1,6 +1,9 @@
 import utilities.uuid
 import utilities.crypto
 
+ADMIN_ROLE = 'admin'
+VIEWER_ROLE = 'viewer'
+
 
 class User:
 	def __init__(self, username=None, password=None, role='viewer'):
