@@ -4,7 +4,11 @@ module.exports = function (username, password, callback) {
 	loginRequest.onreadystatechange = function () {
 		if (loginRequest.readyState === 4 && loginRequest.status === 200) {
 			const response = JSON.parse(loginRequest.responseText);
-			callback(response);
+			if (response['code']) {
+				callback(null, response['data']['token']);
+			} else {
+				callback(response['error'], null);
+			}
 		}
 	};
 	loginRequest.send(JSON.stringify({'username': username, 'password': password}));

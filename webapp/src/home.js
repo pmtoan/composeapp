@@ -68,12 +68,12 @@ window.onload = function () {
 			const username = document.getElementById('username').value;
 			const password = document.getElementById('password').value;
 			if ((username.localeCompare('') !== 0) && (password.localeCompare('') !== 0)) {
-				UserLogin(username, password, function (response) {
-					if (response['token'].localeCompare('') !== 0) {
-						localStorage.setItem('_token', response['token']);
+				UserLogin(username, password, function (err, token) {
+					if (!err) {
+						localStorage.setItem('_token', token);
 						location.reload();
 					} else {
-						document.getElementById('login_status').innerHTML = response['error'];
+						document.getElementById('login_status').innerHTML = err;
 					}
 				});
 			}
