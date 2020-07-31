@@ -11,8 +11,8 @@ services:
 
   composeapp_db_admin:
     container_name: composeapp_db_admin
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - PMA_HOST=composeapp_db_dev
+    image: adminer
+    links:
+      - composeapp_db_dev:db
     ports:
-      - 30300:80
+      - 8080:8080
