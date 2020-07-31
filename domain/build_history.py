@@ -1,4 +1,4 @@
-import utilities.uuid
+import utilities.unique
 import utilities.time
 
 
@@ -24,7 +24,7 @@ class BuildHistory:
 		return self.__ser__()
 
 	def create(self):
-		self.build_id = utilities.uuid.generate_uuid_v4()
+		self.build_id = utilities.unique.generate_uuid_v4()
 		self.built_at = utilities.time.current_timestamp()
 
 	def scan(self, fields):

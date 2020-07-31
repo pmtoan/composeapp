@@ -3,13 +3,30 @@ import jwt
 import hashlib
 
 
-def generate_password_hash(text):
-	return hashlib.sha256(text.encode()).hexdigest()
+class InvalidToken(Exception):
+	def __init__(self):
+		super(self).__init__('invalid token')
 
 
-def encode_jwt_token(data):
-	return jwt.encode(data, os.environ['SECRET'], algorithm='HS256').decode()
+class Crypto:
+	@staticmethod
+	def hash_password(text):
+		return hashlib.sha256((os.environ['SECRET'] + text).encode()).hexdigest()
 
+	@staticmethod
+	def encode_jwt_token(data):
+		try:
+			token = jwt.encode(data, os.environ['SECRET'], algorithm='HS256').decode()
+			return token
+		except Exception as e:
+			print(e)
+			return None
 
-def decode_jwt_token(token):
-	return jwt.decode(token.encode(), os.environ['SECRET'], algorithms=['HS256'])
+	@staticmethod
+	def decode_jwt_token(token):
+		try:
+			data = jwt.decode(token.encode(), os.environ['SECRET'], algorithms=['HS256'])
+			return data
+		except Exception as e:
+			print(e)
+			return InvalidToken

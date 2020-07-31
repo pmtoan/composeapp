@@ -1,0 +1,18 @@
+version: '3'
+services:
+  composeapp_db_dev:
+    container_name: composeapp_db_dev
+    image: library/mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - 3306:3306
+
+  composeapp_db_admin:
+    container_name: composeapp_db_admin
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=composeapp_db_dev
+    ports:
+      - 30300:80

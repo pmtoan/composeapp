@@ -2,6 +2,9 @@ import os
 import web
 import json
 
+from domain.http import ResponseData
+from domain.http import HttpCreated
+from domain.http import HttpUnauthorized
 from services.application.app_service import AppService
 from services.application.app_composer import AppComposer
 from services.git.git_service import GitService
@@ -31,10 +34,10 @@ class ApplicationEndpoint:
 
 		user = self.user_service.validate_user_token(token=token)
 		if isinstance(user, Exception):
-			return Exception('unauthorized')
+			HttpUnauthorized(data=ResponseData(ex=user, data=None))
 
 		if user.role != 'admin':
-			return Exception('unauthorized')
+			HttpUnauthorized(data=ResponseData(ex='no permission', data=None))
 
 		request = json.loads(data)
 		return self.app_compose.build_create_app_request(request['name'], request['desc'], request['repo_link'])

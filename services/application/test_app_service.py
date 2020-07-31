@@ -1,5 +1,5 @@
 import os
-import utilities.uuid
+import utilities.unique
 
 from services.application.app_service import AppService
 from services.application.app_composer import AppComposer
@@ -47,7 +47,7 @@ class TestAppService:
 		assert app.deleted_at == self.app.deleted_at, 'expected app deleted at is %s, but got %s' % (self.app.deleted_at, app.deleted_at)
 		assert len(app.build_history) == 0, 'expected build history len = 0, but got %d' % len(app.build_history)
 
-		app = self.service.get_app(app_id=utilities.uuid.generate_uuid_v4())
+		app = self.service.get_app(app_id=utilities.unique.generate_uuid_v4())
 		assert app is None, 'expected app is None, but got not None'
 
 	def __3_build_app__(self):
